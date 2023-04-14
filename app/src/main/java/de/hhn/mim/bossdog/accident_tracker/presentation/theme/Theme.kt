@@ -1,6 +1,7 @@
 package de.hhn.mim.bossdog.accident_tracker.presentation.theme
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
 
 @Composable

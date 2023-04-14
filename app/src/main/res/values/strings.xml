@@ -9,4 +9,6 @@
     <string name="title_activity_presentation._main">presentation.MainActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="complication_label">Example complication</string>
+    <string name="toggle_sending_on">Stop sending</string>
+    <string name="toggle_sending_off">Send data</string>
 </resources>
