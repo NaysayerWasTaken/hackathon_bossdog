@@ -47,6 +47,8 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import de.hhn.mim.bossdog.accident_tracker.R
+import de.hhn.mim.bossdog.accident_tracker.controller.heartRateCallback
+import de.hhn.mim.bossdog.accident_tracker.controller.vO2Callback
 import de.hhn.mim.bossdog.accident_tracker.presentation.theme.Accident_trackerTheme
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -66,18 +68,14 @@ class MainActivity : ComponentActivity() {
                 lifecycleScope.launch {
                     val capabilities = measureClient.getCapabilitiesAsync().awaitWithException()
                     val supportsHeartRate = DataType.HEART_RATE_BPM in capabilities.supportedDataTypesMeasure
-                    Log.d("debug: ", supportsHeartRate.toString())
-                    if (supportsHeartRate) {
-                        setContent {
-                            WearApp(measureClient)
-                        }
-                    } else {
-                        Log.d("debug: ", "doesn't support heart rate")
+                    val supportsVO2Max = DataType.VO2_MAX in capabilities.supportedDataTypesMeasure
+                    Log.d("debug: ", "Heart rate support:" + supportsHeartRate.toString() +
+                            "\n VO2 support:" + supportsVO2Max)
+                    setContent {
+                        WearApp(measureClient)
                     }
                 }
-
             }
-
             else -> {
                 // You can directly ask for the permission.
                 requestPermissions(
@@ -85,7 +83,6 @@ class MainActivity : ComponentActivity() {
                     200)
             }
         }
-
     }
 }
 
@@ -118,6 +115,7 @@ fun ToggleSend(measureClient: MeasureClient) {
         Text(text = "Send data", modifier = Modifier.padding(15.dp))
         Button(onClick = {sending.value = true
             measureClient.registerMeasureCallback(DataType.Companion.HEART_RATE_BPM, heartRateCallback)
+            measureClient.registerMeasureCallback(DataType.Companion.VO2_MAX, vO2Callback)
             Log.d("debug: ", "start")
                          },
             colors = ButtonDefaults.buttonColors(
@@ -132,6 +130,7 @@ fun ToggleSend(measureClient: MeasureClient) {
             Log.d("debug: ", "stop")
             runBlocking {
                 measureClient.unregisterMeasureCallbackAsync(DataType.Companion.HEART_RATE_BPM, heartRateCallback)
+                measureClient.unregisterMeasureCallbackAsync(DataType.Companion.VO2_MAX, vO2Callback)
             }
                          },
             colors = ButtonDefaults.buttonColors(
@@ -142,22 +141,6 @@ fun ToggleSend(measureClient: MeasureClient) {
         }
     }
 
-}
-
-val heartRateCallback = object : MeasureCallback {
-    override fun onAvailabilityChanged(dataType: DeltaDataType<*, *>, availability: Availability) {
-        if (availability is DataTypeAvailability) {
-            // Handle availability change.
-            Log.d("debug: ", "availability changed")
-        }
-    }
-
-    override fun onDataReceived(data: DataPointContainer) {
-        // Inspect data points.
-        data.getData(DataType.Companion.HEART_RATE_BPM).forEach {value ->
-            Log.d("Datapoint: ", "val: ${value.value}, acc: ${value.accuracy}")
-        }
-    }
 }
 
 @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
