@@ -84,6 +84,8 @@ dependencies {
     implementation 'io.ktor:ktor-client-logging-jvm:1.5.0'
     implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0")
     implementation("io.ktor:ktor-client-content-negotiation:2.2.4")
+    // https://mvnrepository.com/artifact/com.google.android.fhir/common
+    implementation("com.google.android.fhir:common:0.1.0-alpha03")
 
 
     constraints {

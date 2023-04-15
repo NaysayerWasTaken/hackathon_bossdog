@@ -18,7 +18,9 @@ func main() {
 	r.POST("/dplist", func(c *gin.Context) {
 		var dps []DataPoint
 		c.ShouldBindJSON(&dps)
-		log.Println(dps)
+		for _, v := range dps {
+			log.Println("time: ", v.Time, " value: ", v.Value)
+		}
 		c.JSON(http.StatusOK, gin.H{
 			"message": "success",
 		})
