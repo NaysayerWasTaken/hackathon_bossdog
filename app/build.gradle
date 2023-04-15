@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.0"
 }
 
 android {
@@ -17,6 +18,12 @@ android {
             useSupportLibrary true
         }
 
+    }
+
+    buildscript {
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-serialization:2.2.4"
+        }
     }
 
     buildTypes {
@@ -71,6 +78,13 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     implementation("androidx.health:health-services-client:1.0.0-beta03")
     implementation("com.google.guava:guava:31.1-android")
+    implementation 'io.ktor:ktor-client-android:2.2.4'
+    implementation 'io.ktor:ktor-client-serialization:1.5.0'
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.2.4")
+    implementation 'io.ktor:ktor-client-logging-jvm:1.5.0'
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0")
+    implementation("io.ktor:ktor-client-content-negotiation:2.2.4")
+
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {

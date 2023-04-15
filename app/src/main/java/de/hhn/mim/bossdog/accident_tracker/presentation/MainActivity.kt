@@ -32,15 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.health.services.client.HealthServices
-import androidx.health.services.client.HealthServicesClient
-import androidx.health.services.client.MeasureCallback
 import androidx.health.services.client.MeasureClient
 import androidx.health.services.client.awaitWithException
-import androidx.health.services.client.data.Availability
-import androidx.health.services.client.data.DataPointContainer
 import androidx.health.services.client.data.DataType
-import androidx.health.services.client.data.DataTypeAvailability
-import androidx.health.services.client.data.DeltaDataType
 import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
