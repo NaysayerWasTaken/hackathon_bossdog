@@ -86,6 +86,9 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.2.4")
     // https://mvnrepository.com/artifact/com.google.android.fhir/common
     implementation("com.google.android.fhir:common:0.1.0-alpha03")
+    implementation("com.google.android.fhir:data-capture:1.0.0")
+// https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/org.hl7.fhir.r5
+    implementation group: 'ca.uhn.hapi.fhir', name: 'org.hl7.fhir.r5', version: '5.6.971'
 
 
     constraints {
